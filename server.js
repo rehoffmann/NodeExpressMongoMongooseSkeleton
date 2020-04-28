@@ -1,6 +1,6 @@
 const mongoose = require ('mongoose');
 const express = require ('express');
-const testapi = require ('./routes/routes');
+const testapi = require ('./Routes/routes');
 const app = express();
 
 //store MongoDB cluster connection string, also set which database to use

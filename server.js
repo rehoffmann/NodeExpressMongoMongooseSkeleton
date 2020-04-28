@@ -6,7 +6,7 @@ const app = express();
 //store MongoDB cluster connection string, also set which database to use
 const dbConnectionUrl = "mongodb+srv://rhoffmann:meme6149TOO@cluster0-ah1ec.mongodb.net/databaseName?retryWrites=true&w=majority";
 
-mongoose.connect(dbConnectionUrl,  { useNewUrlParser: true })
+mongoose.connect(dbConnectionUrl,  { useNewUrlParser: true, useUnifiedTopology: true  })
     .then(() => {
         console.log('youre in')
     })

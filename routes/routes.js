@@ -22,8 +22,6 @@ router.get('/', async (req,res) => {
         //find all documents for class, can add query filters/regular expressions
         const data = await schemaModel.find().sort('name');
         res.send(data);
-    
-    res.send(genres);
     });
 
 router.get('/:id', async (req, res) => {
@@ -50,7 +48,8 @@ router.put('/:id', async (req,res) => {
     if (error) return res.status(400).send(error.details[0].message);
     
     const data = await schemaModel.findByIdAndUpdate(req.params.id, {name: req.body.name}, {
-        new: true
+        new: true,
+        useFindAndModify: false
     });
 
     //look up course, if doesnt exist return 404
@@ -60,7 +59,7 @@ router.put('/:id', async (req,res) => {
 });
 
 router.delete('/:id', async (req,res) => {
-    const data = newSchema.findByIdAndRemove(req.params.id);
+    const data = await schemaModel.findByIdAndRemove(req.params.id, {useFindAndModify: false});
 
     if (!data) return res.status(404).send('Not Found');
     //delete
@@ -83,10 +82,6 @@ module.exports = router;
 
 //delete from database
 //can also use deleteOne or deleteMany, not sure what the differences are
-async function removeData(id){
-    const result = await schemaModel.findByIdAndRemove(id);
-    console.log(result);
-}
 
 //updateMany('5ea63bbfba46fc47142599b0');
 
